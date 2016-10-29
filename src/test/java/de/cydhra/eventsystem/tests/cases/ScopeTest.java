@@ -36,7 +36,7 @@ public class ScopeTest {
     public void testEventCallingWrongScope() {
         EventManager.registerListeners(testListenerFail);
         EventManager.callEvent(new TestEventBase(42));
-        EventManager.registerListeners(testListenerFail);
+        EventManager.unregisterListeners(testListenerFail);
     }
     
 }
