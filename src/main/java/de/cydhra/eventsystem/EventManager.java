@@ -119,6 +119,7 @@ public final class EventManager {
             for (int i = 0; i < listenerList.size(); i++) {
                 if (listenerList.get(i).listenerClassInstance == listenerClassInstance) {
                     listenerList.remove(i);
+                    i -= 1;
                 }
             }
         }
