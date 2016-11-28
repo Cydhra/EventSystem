@@ -176,6 +176,7 @@ public final class EventManager {
                     if (!typed || listener.listenedEventType == type) {
                         if (listener.priority == priority) {
                             try {
+                                listener.listenerMethod.setAccessible(true);
                                 listener.listenerMethod.invoke(listener.listenerClassInstance, event);
                             } catch (IllegalAccessException e) {
                                 System.err.print("Could not access event handler method:");
