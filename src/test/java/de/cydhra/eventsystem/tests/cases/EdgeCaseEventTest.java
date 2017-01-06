@@ -1,6 +1,7 @@
 package de.cydhra.eventsystem.tests.cases;
 
 import de.cydhra.eventsystem.EventManager;
+import de.cydhra.eventsystem.exceptions.ErrorPolicy;
 import de.cydhra.eventsystem.exceptions.EventDispatchException;
 import de.cydhra.eventsystem.tests.events.TestEventBase;
 import de.cydhra.eventsystem.tests.listeners.ProxyListenerRegistrator;
@@ -21,6 +22,7 @@ public class EdgeCaseEventTest {
     
     @BeforeClass
     public static void setup() {
+        EventManager.ERROR_POLICY = ErrorPolicy.EXCEPTION;
         ProxyListenerRegistrator.registerNonPublicListener();
     }
     

@@ -3,6 +3,7 @@ package de.cydhra.eventsystem;
 import de.cydhra.eventsystem.events.Event;
 import de.cydhra.eventsystem.events.Scoped;
 import de.cydhra.eventsystem.events.Typed;
+import de.cydhra.eventsystem.exceptions.ErrorPolicy;
 import de.cydhra.eventsystem.exceptions.EventDispatchException;
 import de.cydhra.eventsystem.listeners.EventHandler;
 import de.cydhra.eventsystem.listeners.EventType;
@@ -19,6 +20,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Registers and manages listeners and handles event dispatching
  */
 public final class EventManager {
+    
+    /**
+     * The error policy determines how exceptions on dispatched events will be handled.
+     */
+    public static ErrorPolicy ERROR_POLICY = ErrorPolicy.LOG;
     
     private static final HashMap<Class<? extends Event>, CopyOnWriteArrayList<Listener>> registeredListeners =
             new HashMap<>();
@@ -54,8 +60,8 @@ public final class EventManager {
             
             // illegal parameter
             if (!Event.class.isAssignableFrom(method.getParameterTypes()[0])) {
-                System.err.println("Ignoring illegal event handler: " + method.getName() +
-                        ": Argument must extend " + Event.class.getName());
+                System.err.println("Ignoring illegal event handler: " + method.getName() + ": Argument must extend " +
+                        Event.class.getName());
                 continue;
             }
             
@@ -182,8 +188,18 @@ public final class EventManager {
                                 System.err.print("Could not access event handler method:");
                                 e.printStackTrace();
                             } catch (InvocationTargetException e) {
-                                throw new EventDispatchException(
-                                        "Could not dispatch event to handler " + listener.listenerMethod.getName(), e);
+                                
+                                // depending on error policy, throw an exception or just log and ignore
+                                switch (ERROR_POLICY) {
+                                    case EXCEPTION:
+                                        throw new EventDispatchException("Could not dispatch event to handler " +
+                                                listener.listenerMethod.getName(), e);
+                                    case LOG:
+                                        System.err.println("Could not dispatch event to handler " +
+                                                listener.listenerMethod.getName());
+                                        e.printStackTrace();
+                                        break;
+                                }
                             }
                         }
                     }

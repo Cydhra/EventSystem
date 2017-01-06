@@ -1,12 +1,14 @@
 package de.cydhra.eventsystem.tests.cases;
 
 import de.cydhra.eventsystem.EventManager;
+import de.cydhra.eventsystem.exceptions.ErrorPolicy;
 import de.cydhra.eventsystem.exceptions.EventDispatchException;
 import de.cydhra.eventsystem.tests.events.TestEventTyped;
 import de.cydhra.eventsystem.tests.listeners.TestListenerTyped;
 import de.cydhra.eventsystem.tests.listeners.TestListenerTypedFail;
 import de.cydhra.eventsystem.tests.response.InterruptMatcher;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -21,6 +23,11 @@ public class TypeTest {
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    
+    @BeforeClass
+    public static void setup() {
+        EventManager.ERROR_POLICY = ErrorPolicy.EXCEPTION;
+    }
     
     @After
     public void afterTest() {
