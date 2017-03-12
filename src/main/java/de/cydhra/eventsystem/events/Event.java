@@ -19,8 +19,7 @@ public abstract class Event {
      * A cancelled event will be handed to all listeners although it has been cancelled before. Other listeners can undo
      * the cancel operation.
      *
-     * @param cancelled
-     *         whether this event shall be cancelled
+     * @param cancelled whether this event shall be cancelled
      */
     public void setCancelled(final boolean cancelled) {
         this.cancelled = cancelled;

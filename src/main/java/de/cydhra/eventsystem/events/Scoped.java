@@ -10,8 +10,6 @@ public interface Scoped {
     
     /**
      * @return the event's scope.
-     *
-     * @{@link de.cydhra.eventsystem.scope.Scope}
      */
     String getScope();
 }

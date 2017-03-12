@@ -42,8 +42,7 @@ public class ScopeGroup {
     /**
      * Determines whether a scope lies within this scope group
      *
-     * @param scope
-     *         the scope that shall be checked
+     * @param scope the scope that shall be checked
      *
      * @return true, if the scope is within this group definition
      */
@@ -66,10 +65,8 @@ public class ScopeGroup {
         /**
          * A scope group has a name and may have a sub group
          *
-         * @param groupName
-         *         name of the group or wildcard symbol *
-         * @param subGroup
-         *         sub group or null, if this is the deepest group already
+         * @param groupName name of the group or wildcard symbol *
+         * @param subGroup  sub group or null, if this is the deepest group already
          */
         Group(final String groupName, final Group subGroup) {
             this.groupName = groupName;
@@ -79,8 +76,7 @@ public class ScopeGroup {
         /**
          * Recursive check wether another scope (group) is contained in this group
          *
-         * @param group
-         *         the scope (group) that is checked
+         * @param group the scope (group) that is checked
          *
          * @return true, if the other group lies within this group
          */
