@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 
 /**
  * Specifies the listener for a certain scope (e.g. A.B) or scope group (e.g. A.*)
- * <p>
- * {@see de.cydhra.eventsystem.scope.ScopeGroup}
+ *
+ * @see de.cydhra.eventsystem.scope.ScopeGroup
  */
 @Documented
 @Target(ElementType.METHOD)
