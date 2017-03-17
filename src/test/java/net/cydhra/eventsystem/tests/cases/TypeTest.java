@@ -6,6 +6,7 @@ import net.cydhra.eventsystem.exceptions.EventDispatchException;
 import net.cydhra.eventsystem.tests.events.TestEventTyped;
 import net.cydhra.eventsystem.tests.listeners.TestListenerTyped;
 import net.cydhra.eventsystem.tests.listeners.TestListenerTypedFail;
+import net.cydhra.eventsystem.tests.listeners.TestListenerTypedUnTyped;
 import net.cydhra.eventsystem.tests.response.InterruptMatcher;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -19,6 +20,7 @@ import org.junit.rules.ExpectedException;
 public class TypeTest {
     
     private static final TestListenerTyped testListener = new TestListenerTyped();
+    private static final TestListenerTypedUnTyped untypedTestListener = new TestListenerTypedUnTyped();
     private static final TestListenerTypedFail testListenerFail = new TestListenerTypedFail();
     
     @Rule
@@ -34,6 +36,7 @@ public class TypeTest {
         // unregister everything
         EventManager.unregisterListeners(testListener);
         EventManager.unregisterListeners(testListenerFail);
+        EventManager.unregisterListeners(untypedTestListener);
     }
     
     @Test
@@ -42,6 +45,14 @@ public class TypeTest {
         thrown.expect(EventDispatchException.class);
         thrown.expectCause(new InterruptMatcher(42));
         EventManager.callEvent(new TestEventTyped(42));
+    }
+    
+    @Test
+    public void testEventCallingUnTypedListener() {
+        EventManager.registerListeners(untypedTestListener);
+        thrown.expect(EventDispatchException.class);
+        thrown.expectCause(new InterruptMatcher(1));
+        EventManager.callEvent(new TestEventTyped(1));
     }
     
     @Test

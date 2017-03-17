@@ -170,7 +170,7 @@ public final class EventManager {
         if (listeners != null) {
             for (Listener listener : listeners) {
                 if (!scoped || listener.scopeGroup.containsScope(scope)) {
-                    if (!typed || listener.listenedEventType == type) {
+                    if (!typed || listener.listenedEventType == -1 || listener.listenedEventType == type) {
                         if (listener.priority == priority) {
                             try {
                                 listener.listenerMethod.setAccessible(true);
