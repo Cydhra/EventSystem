@@ -38,9 +38,9 @@ public final class EventManager {
     }
     
     /**
-     * Identify and registers all {@link net.cydhra.eventsystem.listeners.EventHandler} methods in the class of given
-     * Object instance. The instance will be saved, because it is used to invoke the listeners, thus the listeners
-     * cannot be static and the object won't get destroyed by garbage collection. Use it to unregister the listeners
+     * Identify and registers all {@link net.cydhra.eventsystem.listeners.EventHandler} methods in the class of given Object instance. The
+     * instance will be saved, because it is used to invoke the listeners, thus the listeners cannot be static and the object won't get
+     * destroyed by garbage collection. Use it to unregister the listeners
      *
      * @param listenerClassInstance An object of a class containing event handlers
      */
@@ -111,7 +111,7 @@ public final class EventManager {
     }
     
     /**
-     * Unregisteres all event handlers associated with this object
+     * Unregisters all event handlers associated with this object
      *
      * @param listenerClassInstance An object of a class containing even handlers that has been registered at the event handler
      */
@@ -124,6 +124,15 @@ public final class EventManager {
                 }
             }
         }
+    }
+    
+    /**
+     * Unregisters all event handlers associated with given event type
+     *
+     * @param eventClass class of the event
+     */
+    public static void unregisterListenersOfEvent(final Class<? extends Event> eventClass) {
+        registeredListeners.get(eventClass).clear();
     }
     
     /**
